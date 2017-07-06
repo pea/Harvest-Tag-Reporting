@@ -33,6 +33,14 @@ var configSchema = {
     tag: {
       description: 'Tag to group by (1,2 or 3)',
       default: 1
+    },
+    rounding: {
+      description: 'round, roundup or none',
+      default: 'roundup'
+    },
+    roundTo: {
+      description: 'Minutes to round to if rounding not disabled',
+      default: '15'
     }
   }
 };
@@ -50,7 +58,7 @@ prompt.get(configSchema, (err, config) => {
   getUser(config.email, harvest)
     .then((user) => { return getReport(user.id, config.fromDate, config.toDate, harvest) })
     .then((data) => { return filterReport(data, config.tag-=1, harvest) })
-    .then((results) => { return generateReport(results) })
+    .then((results) => { return generateReport(results, config.rounding, config.roundTo) })
     .then((results) => { return displayReport(results, config.fromDate, config.toDate) })
     .catch((err) => { throw err })
 });
