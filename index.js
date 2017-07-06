@@ -19,10 +19,10 @@ var schema = {
             default: ''
         },
         fromDate: {
-            default: '1 Jan 17'
+            default: moment().weekday(-6).format('D MMM YY')
         },
         toDate: {
-            default: '5 Jul 17'
+            default: moment().weekday(0).format('D MMM YY')
         },
         tag: {
             description: 'Tag to group by (1,2 or 3)',
